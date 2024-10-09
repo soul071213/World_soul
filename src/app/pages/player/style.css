@@ -1,0 +1,27 @@
+.player_bar{
+    padding-top: calc(64 / 1080 * 100vh)-40;
+    padding-bottom: calc(240 / 1080 * 100vh);
+}
+.players{
+    
+    gap: calc(40 / 1920 * 100vw);
+    padding-left: calc(46 / 1920 * 100vw);
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.players::-webkit-scrollbar {
+    display: none;
+}
+.player_card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.player_card_image{
+
+    
+    max-width: calc(350 / 1920 * 100vw);
+    max-height: calc(500 / 1080 * 100vh);
+}
+
