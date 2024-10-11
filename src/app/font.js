@@ -5,7 +5,11 @@ export const pretendard_Bold = localFont({
   display: "swap",
   weight: "400",
 });
-
+export const pretendard_semiBold = localFont({
+  src: "./fonts/Pretendard-SemiBold.otf",
+  display: "swap",
+  weight: "400",
+});
 export const Pretendard_Regular = localFont({
   src: "./fonts/Pretendard-Regular.otf",
   display: "swap",

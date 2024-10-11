@@ -1,14 +1,14 @@
 .player_bar{
-    padding-top: calc(64 / 1080 * 100vh)-40;
-    padding-bottom: calc(240 / 1080 * 100vh);
+    padding-top: calc(30 / 1080 * 100vh );
+    padding-bottom: calc(100 / 1080 * 100vh);
 }
 .players{
-    
     gap: calc(40 / 1920 * 100vw);
     padding-left: calc(46 / 1920 * 100vw);
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow-y: hidden;
 }
 .players::-webkit-scrollbar {
     display: none;
@@ -18,10 +18,24 @@
     flex-direction: column;
     align-items: center;
 }
-.player_card_image{
-
-    
-    max-width: calc(350 / 1920 * 100vw);
-    max-height: calc(500 / 1080 * 100vh);
+.player_card_image {
+    width:  calc(280 / 1920 * 100vw);
+    height: calc(500 / 1080 * 100vh);
+    /* max-width: calc(350 / 1920 * 100vw);
+    max-height: calc(500 / 1080 * 100vh); */
+    transition: width 0.5s ease, height 0.5s ease, transform 0.5s ease;
+}
+.player_card_image:hover {
+    transform: translateY(-18px); /* 위로 살짝 이동 */
 }
 
+/* @media (max-width: 1920px) {
+    .player_bar{
+        padding-top: calc(65 / 1080 * 100vh );
+        padding-bottom: calc(180 / 1080 * 100vh);
+    }
+    .player_card_image {
+        width: calc(300 / 1440 * 100vw);
+        height: calc(500 / 900 * 100vh);
+    }
+} */

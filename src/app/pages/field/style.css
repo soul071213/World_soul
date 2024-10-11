@@ -1,0 +1,113 @@
+.top_bar{
+    margin-left: calc(36 / 1920 * 100vw);
+}
+.score_box1{
+    width: calc(400 / 1920 * 100vw);
+    height: 80px;
+    border-bottom-left-radius: 14px;
+        
+}
+.score_box2{
+    width: calc(400 / 1920 * 100vw);
+    height: 80px;
+    border-bottom-right-radius: 14px;
+        
+}
+.p_country{
+    font-size: 48px;
+    color: white;
+    text-align: center;
+}
+
+.score_bar{
+    width: 252px;
+    height: 80px;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.my_players{
+    width: calc(500 / 1920 * 100vw);
+    height: calc(500 / 1080 * 100vh);
+    position: fixed;
+    top: calc(412 / 1080 * 100vh);
+    left: calc(100/1920*100vw);
+}
+
+.enumy_players{
+    width: calc(500 / 1920 * 100vw);
+    height: calc(500 / 1080 * 100vh);
+    position: fixed;
+    top: calc(58 / 1080 * 100vh);
+    left: calc(1242/1920*100vw);
+}
+
+.my_nametag{
+    display: flex;              /* Flexbox 사용 */
+    align-items: center;       /* 세로 가운데 정렬 */
+    justify-content: center;    /* 가로 가운데 정렬 (필요한 경우) */
+
+    border-radius: 10px;
+    width: calc(337 / 1920 * 100vw);
+    height: calc(100 / 1080 * 100vh);
+    position: fixed;
+    top: calc(912 / 1080 * 100vh);
+    left: calc(190/1920*100vw);
+}
+.my_nametag>p{
+    text-align: center;
+    color: #FFF;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000;
+    font-family: Pretendard;
+    font-size: calc(48 / 1920 * 100vw);;
+    font-style: normal;
+    line-height: normal;
+}
+.enumy_nametag{
+    display: flex;              /* Flexbox 사용 */
+    align-items: center;       /* 세로 가운데 정렬 */
+    justify-content: center;    /* 가로 가운데 정렬 (필요한 경우) */
+
+    border-radius: 10px;
+    width: calc(337 / 1920 * 100vw);
+    height: calc(100 / 1080 * 100vh);
+    position: fixed;
+    top: calc(503 / 1080 * 100vh);
+    left: calc(1312/1920*100vw);
+}
+.enumy_nametag>p{
+    text-align: center;
+    color: #FFF;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000;
+    font-family: Pretendard;
+    font-size: calc(48 / 1920 * 100vw);
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.ball{
+    width: calc(235 / 1920 * 100vw);
+    height: calc(235 / 1080 * 100vh);
+    position: fixed;
+    top: calc(570 / 1080 * 100vh);
+    left: calc(610/1920*100vw);
+}
+.skill_box{
+    border-radius: 10px;
+    width: calc(525 / 1920 * 100vw);
+    height: calc(175 / 1080 * 100vh);
+    display: flex;              /* Flexbox 사용 */
+    align-items: center;       /* 세로 가운데 정렬 */
+    justify-content: center;    /* 가로 가운데 정렬 (필요한 경우) */
+    font-size: calc(54 / 1920 * 100vw);
+    color: #FFF;
+}
+.boxes{
+    margin-top: calc(530 / 1080 * 100vh);
+    margin-left: calc(854 / 1920 * 100vw);
+}
