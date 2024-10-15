@@ -1,5 +1,7 @@
 .top_bar{
-    margin-left: calc(36 / 1920 * 100vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .score_box1{
     width: calc(400 / 1920 * 100vw);
@@ -30,18 +32,18 @@
 }
 
 .my_players{
-    width: calc(500 / 1920 * 100vw);
-    height: calc(500 / 1080 * 100vh);
+    width: calc(400 / 1920 * 100vw);
+    height: calc(400 / 1080 * 100vh);
     position: fixed;
-    top: calc(412 / 1080 * 100vh);
-    left: calc(100/1920*100vw);
+    top: calc(512 / 1080 * 100vh);
+    left: calc(120/1920*100vw);
 }
 
 .enumy_players{
-    width: calc(500 / 1920 * 100vw);
-    height: calc(500 / 1080 * 100vh);
+    width: calc(400 / 1920 * 100vw);
+    height: calc(400 / 1080 * 100vh);
     position: fixed;
-    top: calc(58 / 1080 * 100vh);
+    top: calc(108 / 1080 * 100vh);
     left: calc(1242/1920*100vw);
 }
 
@@ -99,15 +101,124 @@
 }
 .skill_box{
     border-radius: 10px;
-    width: calc(525 / 1920 * 100vw);
-    height: calc(175 / 1080 * 100vh);
+    width: calc(450 / 1920 * 100vw);
+    height: calc(150 / 1080 * 100vh);
     display: flex;              /* Flexbox 사용 */
     align-items: center;       /* 세로 가운데 정렬 */
     justify-content: center;    /* 가로 가운데 정렬 (필요한 경우) */
-    font-size: calc(54 / 1920 * 100vw);
-    color: #FFF;
+    font-size: calc(48 / 1920 * 100vw);
+    color: #000000;
+    background-color: #F7F7F7;
+    border-color: #D9D9D9;
+    opacity: 0.8;
 }
 .boxes{
-    margin-top: calc(530 / 1080 * 100vh);
-    margin-left: calc(854 / 1920 * 100vw);
+    margin-top: calc(600 / 1080 * 100vh);
+    margin-left: calc(985 / 1920 * 100vw);
+}
+
+
+
+
+/* seestat.js */
+.state_div{
+    margin-top: calc(185 / 1080 * 100vh);
+    justify-content: center;
+    /* align-items: center  ; */
+    gap: calc(170 / 1920 * 100vw);;
+}
+.my_state{
+    border-radius: 10px;
+    /* margin-left: calc(135 / 1920 * 100vw);
+    margin-right:  calc(170 / 1920 * 100vw); */
+    width: calc(450 / 1920 * 100vw);
+    height: calc(550 / 1080 * 100vh);
+    background-color: #F7F7F7;
+    text-align: center;
+}
+.enumy_state{
+    border-radius: 10px;
+    /* margin-left:  calc(170 / 1920 * 100vw); */
+    width: calc(450 / 1920 * 100vw);
+    height: calc(550 / 1080 * 100vh);
+    background-color: #F7F7F7;
+    text-align: center;
+}
+.time_stat {
+    text-align: center;
+    margin-top: calc(140 / 1080 * 100vh);
+    width: calc(264 / 1080 * 100vh);
+    height: calc(264 / 1080 * 100vh); /* width와 동일한 값을 사용하여 크기 유지 */
+    border-radius: 50%;
+    background-color: #F7F7F7;
+}
+.stat_title{
+    margin-top: calc(40 / 1080 * 100vh);
+    font-size: calc(48 / 1080 * 100vh);
+}
+.my_statuss{
+    margin-top: calc(20 / 1080 * 100vh);
+    justify-content: center;
+    gap: 100px;
+    font-size: calc(48 / 1080 * 100vh);
+}
+.enumy_states{
+    margin-top: calc(50 / 1080 * 100vh);
+    justify-content: center;
+    gap: 100px;
+    font-size: calc(48 / 1080 * 100vh);
+}
+.timer_count{
+    /* margin-top:calc(35 / 1080 * 100vh); */
+    font-size:calc(128 / 1080 * 100vh);
+}
+.check{
+    font-size:calc(36 / 1080 * 100vh);
+}
+
+/* modal.js *//* modal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    /* opacity: 0.3; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 모달을 다른 요소 위에 위치시키기 위해 z-index 설정 */
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #F7F7F7;
+    opacity: 1px;
+    border-radius: 10px;
+    height: calc(700 / 1080 * 100vh);
+    width: calc(550/1920*100vw);
+    text-align: center;
+    align-items: center; /* 가로 중앙 정렬 */
+}
+.success{
+    margin-top: calc(50 / 1080 * 100vh);
+    font-size: calc(48 / 1080 * 100vh);
+}
+.text_success{
+    font-size: calc(32 / 1080 * 100vh);
+    margin-top: calc(3 / 1080 * 100vh);
+}
+.number{
+    margin-top: calc(45 / 1080 * 100vh);
+    font-size: calc(64 / 1080 * 100vh);
+}
+.ball_card{
+    width:  calc(235 / 1080 * 100vh);
+    height:  calc(235 / 1080 * 100vh);
+}
+.check_card{
+    margin-top: calc(45 / 1080 * 100vh);
+    font-size: calc(40 / 1080 * 100vh);
 }
