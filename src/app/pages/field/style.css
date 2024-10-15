@@ -32,11 +32,11 @@
 }
 
 .my_players{
-    width: calc(400 / 1920 * 100vw);
-    height: calc(400 / 1080 * 100vh);
+    width: calc(500 / 1920 * 100vw);
+    height: calc(500 / 1080 * 100vh);
     position: fixed;
-    top: calc(512 / 1080 * 100vh);
-    left: calc(120/1920*100vw);
+    top: calc(412 / 1080 * 100vh);
+    left: calc(100/1920*100vw);
 }
 
 .enumy_players{
@@ -44,7 +44,7 @@
     height: calc(400 / 1080 * 100vh);
     position: fixed;
     top: calc(108 / 1080 * 100vh);
-    left: calc(1242/1920*100vw);
+    left: calc(1272/1920*100vw);
 }
 
 .my_nametag{
@@ -113,10 +113,23 @@
     opacity: 0.8;
 }
 .boxes{
-    margin-top: calc(600 / 1080 * 100vh);
-    margin-left: calc(985 / 1920 * 100vw);
+    margin-top: calc(520 / 1080 * 100vh);
+    margin-left: calc(1000 / 1920 * 100vw);
 }
-
+.chance{
+    width: calc(320 / 1920 * 100vw);
+    height: calc(100 / 1080 * 100vh);
+    background-color: #FFFFFF;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+.chance>p{
+    font-size:calc(44 / 1080 * 100vh);
+}
 
 
 
@@ -221,4 +234,23 @@
 .check_card{
     margin-top: calc(45 / 1080 * 100vh);
     font-size: calc(40 / 1080 * 100vh);
+}
+
+
+/* pass_modal */
+.pass_cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pass_selected_card {
+    height: calc(500 / 1080 * 100vh);
+    width: calc(350 / 1920 * 100vw);
+    margin-right: 20px; /* 기본 오른쪽 여백 */
+}
+
+/* 마지막 카드에 오른쪽 여백을 없앰 */
+.pass_selected_card:not(:last-child) {
+    margin-right: 200px; /* 오른쪽 여백 조정 */
 }
