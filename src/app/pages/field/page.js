@@ -15,7 +15,7 @@ import Pass_modal from "@/app/pages/field/pass_modal"
 import keeper from "@/app/data/keeper"
 import attack_state from "@/app/data/attack_state";
 import Homerun from "@/public/Image/home_run.png"
-import Score from "@/public/Image/Score.png"
+import Score from "@/public/Image/score.png"
 
 function change_ko(name) {
     let counrty;
