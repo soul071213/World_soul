@@ -188,7 +188,19 @@
 .check{
     font-size:calc(36 / 1080 * 100vh);
 }
+.shoot_box{
+    margin-top:  calc(630/1080*100vh);
+    margin-left:calc(810 / 1920 * 100vw);
+    width: calc(300 / 1920 * 100vw);
+    height: calc(100/1080*100vh);
+    background-color: #F7F7F7;
+    text-align: center;
+    border-radius: 10px;
+}
+.shoot_box>p{
 
+    font-size:  calc(64/1080*100vh);
+}
 /* modal.js *//* modal.css */
 .modal-overlay {
     position: fixed;

@@ -6,8 +6,9 @@ import Ball from "@/public/Image/ball.png";
 import Image from "next/image";
 import attack_state from "@/app/data/attack_state";
 import depencer_state from "@/app/data/depencer_state";
+import { useRouter } from 'next/navigation';
 
-function skill_modals({ isOpen, onClose, my_name, enumy_name, skills }) {
+function skill_modals({ isOpen, onClose, my_name, enumy_name, skills,change_success,fail_change_success,change_keeper }) {
     const [my_playerState, setmy_playerState] = useState(null); // 적 스탯
     const [enemy_playerState, setenemy_playerState] = useState(null); // 나의 스탯
 
@@ -16,23 +17,25 @@ function skill_modals({ isOpen, onClose, my_name, enumy_name, skills }) {
     const [number, setNumber] = useState(1); // 돌림판 값
     const [count, setCount] = useState(0);
     const [success,setsuscccess] = useState();
+    const router = useRouter();
+    
     useEffect(() => {
-        const state = Array.from(attack_state.entries()).find(([name]) => name === my_name);
+        let state = Array.from(attack_state.entries()).find(([name]) => name === my_name);
         if (state) {
             setmy_playerState(state[1]); // 상태 업데이트
         }
     }, [my_name]);
 
     useEffect(() => {
-        const state = Array.from(depencer_state.entries()).find(([name]) => name === enumy_name);
+        let state = Array.from(depencer_state.entries()).find(([name]) => name === enumy_name);
         if (state) {
             setenemy_playerState(state[1]); // 상태 업데이트
         }
     }, [enumy_name]);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    }, [my_playerState, enemy_playerState]); // 상태가 변경될 때마다 확인
+    // }, [my_playerState, enemy_playerState]); // 상태가 변경될 때마다 확인
 
     // isOpen 상태가 변경되면 count 초기화
     useEffect(() => {
@@ -50,10 +53,12 @@ function skill_modals({ isOpen, onClose, my_name, enumy_name, skills }) {
                 setNumber(Math.floor(Math.random() * 6) + 1); // 1~6의 난수 생성
                 setCount((prevCount) => prevCount + 1); // count 증가
             }, 35); // 0.35초마다 실행
-
+    
             return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
         } else {
+            console.log("123123");
             if (my_playerState && enemy_playerState) {
+                
                 const skillNumber = skills === 1
                     ? turn_skill(my_playerState, enemy_playerState)
                     : dirbble_skill(my_playerState, enemy_playerState);
@@ -63,14 +68,21 @@ function skill_modals({ isOpen, onClose, my_name, enumy_name, skills }) {
                     setsuccess_or_fail("Success");
                     setis_string(true);
                     setsuscccess(true);
+                    if(isOpen){
+                        change_keeper();
+                        change_success();
+                    }
+                    
                 }
                 else{
                     setsuccess_or_fail("Fail");
                     setis_string(true);
                     setsuscccess(false);
+                    fail_change_success();
                 }
             }
         }
+        
     }, [count]); // count와 random_numbers에 의존
 
     function turn_skill(my_playerState, enemy_playerState) {
@@ -139,7 +151,7 @@ function skill_modals({ isOpen, onClose, my_name, enumy_name, skills }) {
                                 objectFit: "contain",
                             }}
                         />
-                        {is_string ? <><p className={`check_card ${pretendard_medium.className}`}  onClick={() => {onClose();}}>확인</p></> : <></>}
+                        {is_string ? <><p className={`check_card ${pretendard_medium.className}`}  onClick={() => {onClose(); }}>확인</p></> : <></>}
                     </div>
                 </div>
             </div>

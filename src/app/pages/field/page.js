@@ -12,6 +12,10 @@ import depencer from "@/app/data/depencer";
 import StatePage from "./seestat";
 import Skill_modal from "@/app/pages/field/skill_modals"
 import Pass_modal from "@/app/pages/field/pass_modal"
+import keeper from "@/app/data/keeper"
+import attack_state from "@/app/data/attack_state";
+import Homerun from "@/public/Image/home_run.png"
+import Score from "@/public/Image/Score.png"
 
 function change_ko(name) {
     let counrty;
@@ -65,7 +69,11 @@ export default function FieldPage() {
     const [passisModalOpen, setpassIsModalOpen] = useState(false);
     const [chancestate, setchancestate] = useState(false);
     const [what_skill,setwhat_skill]=useState(0);
-    const [dischance,setdischance]=useState(0);
+    const [dischance,setdischance]=useState(0); //다음 찬스
+    const [skill_success,setskillsuccess]=useState(false); //스킬 성공 여부
+    const [goal_fail_sucess,setgoal_fail_sucess]=useState(false); //슛팅 성공 여부
+    const [goal_try,setgoal_try]=useState(false); //슛팅 시도 여부
+    const [enemy_playerState, setenemy_playerState] = useState(0); //나의 스탯
     const router = useRouter();
 
     const openModal = () => {
@@ -75,6 +83,7 @@ export default function FieldPage() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
     const passopenModal = () => {
         setpassIsModalOpen(true);
     };
@@ -85,7 +94,12 @@ export default function FieldPage() {
     function SeeStat_change(){
         setSeestate(!SeeStats);
     }
-
+    function change_success(){
+        setskillsuccess(true);
+    }
+    function fail_change_success(){
+        setskillsuccess(false);
+    }
     function select_country(counrty) {
         let randomNumber = Math.floor(Math.random() * counrtys_player.length); // country의 길이에 맞춰 랜덤 생성
         
@@ -96,39 +110,64 @@ export default function FieldPage() {
 
         return counrtys_player[randomNumber][0]; // key 값 반환
     }
-    
-    function discount(){
-        setchance(chance-1);
+    function change_keeper(){
+        if (keeper.has(enumyCountry)) {
+            setenumyplayer(keeper.get(enumyCountry)); // 해당 선수 정보 가져오기
+        }
+    }
+
+    function discount() {
+        if (chance > 0) {
+            setchance(chance - 1);
+        }
     }
 
     function move_chance(){
         if(chancestate===false){
-            const chances=Math.floor(Math.random() * 3)+3;
+            const chances=Math.floor(Math.random() * 4)+2;
             setchance(chances);
             setdischance(chances);
             setchancestate(true);
         }
     }
+
+    useEffect(() => {
+        // chance가 0이 되었을 때 로직 추가
+        if (chance === 0 && chancestate === true ) {
+            if (dischance === 0) {
+                const point = my_score - enumy_score;
+                if (my_score > enumy_score ) {
+                    router.push(`/pages/victory?points=${point}&victory_state=true`);
+                } else if (my_score < enumy_score || my_score === enumy_score) {
+                    router.push(`/pages/victory?points=${point}&victory_state=false`);
+                }         
+            }
+            setenumy_score(enumy_score + 1); // 상대 스코어 증가
+
+            setdischance(dischance - 1);
+            
+             // 다음 찬스 횟수 줄이기
+            setchance(dischance); // chancestate 유지 후 chance 업데이트
+    
+
+        }
+    }, [chance]);
+    
     useEffect(() => {
         move_chance();
         setmy_score(0);
         setenumy_score(0);
     }, []);
+    
 
-    useEffect(()=>{
-        if(chance===0 && chancestate===true){
-            setdischance(dischance-1); //여기서 부터 해야함
-            //dischance가 0이 되면 게임 종료
-            setchance(dischance);
-            if(dischance===0){
-                router.push('/');
-            }
+    // useEffect(() => {
+    //     console.log(SeeStats);
+    // }, [SeeStats]);
+    function select_depencer(selectedCountry){
+        if (depencer.has(selectedCountry)) {
+            setenumyplayer(depencer.get(selectedCountry)); // 해당 선수 정보 가져오기
         }
-    },[chance]);
-
-    useEffect(() => {
-        console.log(SeeStats);
-    }, [SeeStats]);
+    }
 
     useEffect(() => {
         if (name) {
@@ -136,25 +175,86 @@ export default function FieldPage() {
             setEnumyCountry(selectedCountry); // 상태 업데이트
             
             // 적국의 선수 이미지 가져오기
-            if (depencer.has(selectedCountry)) {
-                setenumyplayer(depencer.get(selectedCountry)); // 해당 선수 정보 가져오기
-            }
+            select_depencer(selectedCountry);
         }
     }, [name]);
+
     function pass_change_player(players_name){
         setselected_player(players_name);
     }
+
+    function mystate() {
+        const state = Array.from(attack_state.entries()).find(([names]) => names === selected_player);
+        if (state) {
+            setenemy_playerState(state[1][4]); // 상태 업데이트
+        }
+    }
+    
+    useEffect(() => {
+        mystate();  // 상태 업데이트
+    }, [selected_player]);
+
+    function shooting() {
+        const random_number = Math.floor(Math.random() * 100);
+        
+        // enemy_playerState가 업데이트 된 후에만 실행
+        if (random_number >100-enemy_playerState * 10) {
+            setgoal_fail_sucess(true);
+            setgoal_try(true);
+            setmy_score(my_score+1);
+        } else {
+            setgoal_fail_sucess(false);
+        }
+        setskillsuccess(false);
+        setTimeout(()=>{
+            setgoal_try(false);
+        },2000);
+        if(dischance!==1 || dischance!==0){
+            setdischance(dischance - 1);
+        }
+        setchance(dischance);
+        select_depencer(enumyCountry);
+    }
+    
+    
     return (
         <>
             <div className="w-screen h-screen ">
+                {goal_try?
+                <>
+                {goal_fail_sucess?
+                    <>
+                    <Image
+                        src={Score}
+                        alt="Score"
+                        layout="fill"
+                        objectFit="fill"
+                        style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+                    />
+                    </>:
+                    <>
+                    <Image
+                        src={Homerun}
+                        alt="Homerun"
+                        layout="fill"
+                        objectFit="fill"
+                        style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+                    />
+                    </>}
+                    
+                </>:
+                <>
                 <Skill_modal 
                     isOpen={isModalOpen} 
                     onClose={closeModal}  
                     my_name={selected_player} 
                     enumy_name={enumyplayer ? enumyplayer[0] : ''}  // null 체크 후 접근
                     skills={what_skill}
+                    change_success={change_success}
+                    fail_change_success={fail_change_success}
+                    change_keeper={change_keeper}
                 />
-                <Pass_modal  isOpen={passisModalOpen} onClose={passcloseModal} my_name={selected_player} my_country={change_ko(name) } change_player={pass_change_player}></Pass_modal>
+                <Pass_modal  isOpen={passisModalOpen} onClose={passcloseModal} my_name={selected_player} my_country={change_ko(name) } change_player={pass_change_player} ></Pass_modal>
                 <Image
                     src={Glass}
                     alt="Glass"
@@ -183,34 +283,17 @@ export default function FieldPage() {
                     <p className={`${pretendard_Bold.className}`}>행동 횟수 : {chance}</p>
                 </div>
                     <>
-                        {SeeStats ? 
                         <>
-                            <StatePage my_name={selected_player} enumy_name={enumyplayer[0]} close={SeeStat_change} ></StatePage>
-                        </>:
-                        <>
-                            <div>
-                                <Image
-                                    src={change_image(selected_player)}
-                                    alt="player_user"
-                                    className="my_players"
-                                    style={{
-                                        pointerEvents: "none",
-                                        userSelect: "none",
-                                        userDrag: "none",
-                                        objectFit: "contain",
-                                    }}
-                                />
-                                <div className={`my_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(change_ko(name))}}>
-                                    <p>{selected_player}</p>
-                                </div>
-                            </div>
-                            
-                            {enumyplayer && (
-                                <>
+                            {SeeStats ? 
+                            <>
+                                <StatePage my_name={selected_player} enumy_name={enumyplayer[0]} close={SeeStat_change} ></StatePage>
+                            </>:
+                            <>
+                                <div>
                                     <Image
-                                        src={enumyplayer[1]} // 적국 선수의 이미지
-                                        alt={enumyplayer[0]} // 적국 선수 이름
-                                        className="enumy_players"
+                                        src={change_image(selected_player)}
+                                        alt="player_user"
+                                        className="my_players"
                                         style={{
                                             pointerEvents: "none",
                                             userSelect: "none",
@@ -218,37 +301,65 @@ export default function FieldPage() {
                                             objectFit: "contain",
                                         }}
                                     />
-                                    <div className={`enumy_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(enumyCountry)}}>
-                                        <p>{enumyplayer[0]}</p>
+                                    <div className={`my_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(change_ko(name))}}>
+                                        <p>{selected_player}</p>
                                     </div>
-                                </>
-                                
-                                
-                            )}
-                            <Image
-                                src={Ball} 
-                                alt="ball"
-                                className="ball"
-                                style={{
-                                    pointerEvents: "none",
-                                    userSelect: "none",
-                                    userDrag: "none",
-                                    objectFit: "contain",
-                                }}
-                            />
-                            <div className="boxes">
-                                <div className="flex ">
-                                    <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(1); discount();}}>개인기</div>
-                                    <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(2); discount();}}>드리블</div>
                                 </div>
-                                <div className="flex">
-                                    <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginRight:'8px'}} onClick={() => {passopenModal(); discount();}}>패스</div>
-                                    <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginRight:'8px'}} onClick={() => {SeeStat_change(); discount();}}>스탯 보기</div>
-                                </div>
-                            </div>
+                                
+                                {enumyplayer && (
+                                    <>
+                                        <Image
+                                            src={enumyplayer[1]} // 적국 선수의 이미지
+                                            alt={enumyplayer[0]} // 적국 선수 이름
+                                            className="enumy_players"
+                                            style={{
+                                                pointerEvents: "none",
+                                                userSelect: "none",
+                                                userDrag: "none",
+                                                objectFit: "contain",
+                                            }}
+                                        />
+                                        <div className={`enumy_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(enumyCountry)}}>
+                                            <p>{enumyplayer[0]}</p>
+                                        </div>
+                                    </>
+                                    
+                                )}
+                                <Image
+                                    src={Ball} 
+                                    alt="ball"
+                                    className="ball"
+                                    style={{
+                                        pointerEvents: "none",
+                                        userSelect: "none",
+                                        userDrag: "none",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                                {skill_success?
+                                <>
+                                   <div className="shoot_box" onClick={shooting}>
+                                        <p className={`${pretendard_semiBold.className}`}>슈팅하기</p>
+                                    </div>
+                                </>:
+                                <>
+                                    <div className="boxes">
+                                        <div className="flex ">
+                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(1); discount();}}>개인기</div>
+                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(2); discount();}}>드리블</div>
+                                        </div>
+                                        <div className="flex">
+                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginRight:'8px'}} onClick={() => {passopenModal(); discount();}}>패스</div>
+                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginRight:'8px'}} onClick={() => {SeeStat_change(); discount();}}>스탯 보기</div>
+                                        </div>
+                                    </div>
+                                </>}
+                            </>
+                            }
                         </>
-                        }
                     </>
+                </>}
+                
             </div>
         </>
     );

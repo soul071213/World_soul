@@ -1,0 +1,49 @@
+.lose{
+    font-size: calc(96/1080*100vh);
+    text-align: center;
+    padding-top:calc(195/1080*100vh);
+    color: #FFFFFF;
+}
+.check_box{
+    margin-left: calc(860/1920*100vw);
+    margin-top:  calc(550/1080*100vh);
+    width: calc(200/1920*100vw);
+    height:  calc(100/1080*100vh);
+    border-radius: 10px;
+    background-color: #F7F7F7;
+}
+.check{
+
+    font-size: calc(40/1080*100vh);
+    line-height: calc(100/1080*100vh);;
+    text-align: center;
+
+}
+
+.box{
+    border-radius: 10px;
+    width:  calc(550/1920*100vw);
+    height:  calc(480/1080*100vh);
+    background-color: #F7F7F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+.box>div>p{
+    font-size: calc(48/1080*100vh);
+}
+.box>div>input{
+    border-radius: 5px;
+    font-size:  calc(36/1080*100vh);
+    padding-left: 10px;
+    margin-top: calc(40/1080*100vh);;
+    width:  calc(420/1920*100vw);
+    height:  calc(100/1080*100vh);
+}
+.checkin{
+    margin-top: 10px;
+    font-size:  calc(40/1080*100vh);
+}
