@@ -16,6 +16,7 @@ import keeper from "@/app/data/keeper"
 import attack_state from "@/app/data/attack_state";
 import Homerun from "@/public/Image/home_run.png"
 import Score from "@/public/Image/score.png"
+import loading_page from "@/public/Image/loading_image.png";
 
 function change_ko(name) {
     let counrty;
@@ -218,117 +219,90 @@ export default function FieldPage() {
     
     
     return (
-        <>
-            <div className="w-screen h-screen ">
-                {goal_try?
+        <Suspense fallback={            <Image
+            src={loading_page}
+            alt="Glass"
+            layout="fill"
+            objectFit="fill"
+            style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+        />}>
+            <>
+        
+        <div className="w-screen h-screen ">
+            {goal_try?
+            <>
+            {goal_fail_sucess?
                 <>
-                {goal_fail_sucess?
-                    <>
-                    <Image
-                        src={Score}
-                        alt="Score"
-                        layout="fill"
-                        objectFit="fill"
-                        style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
-                    />
-                    </>:
-                    <>
-                    <Image
-                        src={Homerun}
-                        alt="Homerun"
-                        layout="fill"
-                        objectFit="fill"
-                        style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
-                    />
-                    </>}
-                    
-                </>:
-                <>
-                <Skill_modal 
-                    isOpen={isModalOpen} 
-                    onClose={closeModal}  
-                    my_name={selected_player} 
-                    enumy_name={enumyplayer ? enumyplayer[0] : ''}  // null 체크 후 접근
-                    skills={what_skill}
-                    change_success={change_success}
-                    fail_change_success={fail_change_success}
-                    change_keeper={change_keeper}
-                />
-                <Pass_modal  isOpen={passisModalOpen} onClose={passcloseModal} my_name={selected_player} my_country={change_ko(name) } change_player={pass_change_player} ></Pass_modal>
                 <Image
-                    src={Glass}
-                    alt="Glass"
+                    src={Score}
+                    alt="Score"
                     layout="fill"
                     objectFit="fill"
                     style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
                 />
-                <div className="top_bar flex w-full">
-                    <div className="score_box1" style={{ backgroundColor: change_color(change_ko(name)) }}>
-                        <p className={`p_country ${pretendard_Bold.className}`} style={{textShadow:"-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black"}}>
-                            {change_ko(name)}
-                        </p>
-                    </div>
-                    <div className="score_bar" style={{ background: `linear-gradient(84deg, ${change_color(change_ko(name))} 16.54%, ${change_color(enumyCountry)} 99.24%)`}}>
-                        <p className={`p_country ${pretendard_Bold.className} `} style={{textShadow:"-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black",}}>
-                            {my_score} VS {enumy_score}
-                        </p>
-                    </div>
-                    <div className="score_box2" style={{ backgroundColor: change_color(enumyCountry) }}>
-                        <p className={`p_country ${pretendard_Bold.className}`} style={{textShadow:"-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black"}}>
-                            {enumyCountry}
-                        </p>
-                    </div>
+                </>:
+                <>
+                <Image
+                    src={Homerun}
+                    alt="Homerun"
+                    layout="fill"
+                    objectFit="fill"
+                    style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+                />
+                </>}
+                
+            </>:
+            <>
+            <Skill_modal 
+                isOpen={isModalOpen} 
+                onClose={closeModal}  
+                my_name={selected_player} 
+                enumy_name={enumyplayer ? enumyplayer[0] : ''}  // null 체크 후 접근
+                skills={what_skill}
+                change_success={change_success}
+                fail_change_success={fail_change_success}
+                change_keeper={change_keeper}
+            />
+            <Pass_modal  isOpen={passisModalOpen} onClose={passcloseModal} my_name={selected_player} my_country={change_ko(name) } change_player={pass_change_player} ></Pass_modal>
+            <Image
+                src={Glass}
+                alt="Glass"
+                layout="fill"
+                objectFit="fill"
+                style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+            />
+            <div className="top_bar flex w-full">
+                <div className="score_box1" style={{ backgroundColor: change_color(change_ko(name)) }}>
+                    <p className={`p_country ${pretendard_Bold.className}`} style={{textShadow:"-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black"}}>
+                        {change_ko(name)}
+                    </p>
                 </div>
-                <div className="chance">
-                    <p className={`${pretendard_Bold.className}`}>행동 횟수 : {chance}</p>
+                <div className="score_bar" style={{ background: `linear-gradient(84deg, ${change_color(change_ko(name))} 16.54%, ${change_color(enumyCountry)} 99.24%)`}}>
+                    <p className={`p_country ${pretendard_Bold.className} `} style={{textShadow:"-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black",}}>
+                        {my_score} VS {enumy_score}
+                    </p>
                 </div>
+                <div className="score_box2" style={{ backgroundColor: change_color(enumyCountry) }}>
+                    <p className={`p_country ${pretendard_Bold.className}`} style={{textShadow:"-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black"}}>
+                        {enumyCountry}
+                    </p>
+                </div>
+            </div>
+            <div className="chance">
+                <p className={`${pretendard_Bold.className}`}>행동 횟수 : {chance}</p>
+            </div>
+                <>
                     <>
+                        {SeeStats ? 
                         <>
-                            {SeeStats ? 
-                            <>
-                                <StatePage my_name={selected_player} enumy_name={enumyplayer[0]} close={SeeStat_change} ></StatePage>
-                            </>:
-                            <>
-                                <div>
-                                    <Image
-                                        src={change_image(selected_player)}
-                                        alt="player_user"
-                                        className="my_players"
-                                        style={{
-                                            pointerEvents: "none",
-                                            userSelect: "none",
-                                            userDrag: "none",
-                                            objectFit: "contain",
-                                        }}
-                                    />
-                                    <div className={`my_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(change_ko(name))}}>
-                                        <p>{selected_player}</p>
-                                    </div>
-                                </div>
-                                
-                                {enumyplayer && (
-                                    <>
-                                        <Image
-                                            src={enumyplayer[1]} // 적국 선수의 이미지
-                                            alt={enumyplayer[0]} // 적국 선수 이름
-                                            className="enumy_players"
-                                            style={{
-                                                pointerEvents: "none",
-                                                userSelect: "none",
-                                                userDrag: "none",
-                                                objectFit: "contain",
-                                            }}
-                                        />
-                                        <div className={`enumy_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(enumyCountry)}}>
-                                            <p>{enumyplayer[0]}</p>
-                                        </div>
-                                    </>
-                                    
-                                )}
+                            <StatePage my_name={selected_player} enumy_name={enumyplayer[0]} close={SeeStat_change} ></StatePage>
+                        </>:
+                        <>
+                            <div>
                                 <Image
-                                    src={Ball} 
-                                    alt="ball"
-                                    className="ball"
+                                    src={change_image(selected_player)}
+                                    alt="player_user"
+                                    className="my_players"
                                     style={{
                                         pointerEvents: "none",
                                         userSelect: "none",
@@ -336,32 +310,70 @@ export default function FieldPage() {
                                         objectFit: "contain",
                                     }}
                                 />
-                                {skill_success?
+                                <div className={`my_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(change_ko(name))}}>
+                                    <p>{selected_player}</p>
+                                </div>
+                            </div>
+                            
+                            {enumyplayer && (
                                 <>
-                                   <div className="shoot_box" onClick={shooting}>
-                                        <p className={`${pretendard_semiBold.className}`}>슈팅하기</p>
+                                    <Image
+                                        src={enumyplayer[1]} // 적국 선수의 이미지
+                                        alt={enumyplayer[0]} // 적국 선수 이름
+                                        className="enumy_players"
+                                        style={{
+                                            pointerEvents: "none",
+                                            userSelect: "none",
+                                            userDrag: "none",
+                                            objectFit: "contain",
+                                        }}
+                                    />
+                                    <div className={`enumy_nametag ${pretendard_medium.className}`} style={{ backgroundColor: change_color(enumyCountry)}}>
+                                        <p>{enumyplayer[0]}</p>
                                     </div>
-                                </>:
-                                <>
-                                    <div className="boxes">
-                                        <div className="flex ">
-                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(1); discount();}}>개인기</div>
-                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(2); discount();}}>드리블</div>
-                                        </div>
-                                        <div className="flex">
-                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginRight:'8px'}} onClick={() => {passopenModal(); discount();}}>패스</div>
-                                            <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginRight:'8px'}} onClick={() => {SeeStat_change(); discount();}}>스탯 보기</div>
-                                        </div>
+                                </>
+                                
+                            )}
+                            <Image
+                                src={Ball} 
+                                alt="ball"
+                                className="ball"
+                                style={{
+                                    pointerEvents: "none",
+                                    userSelect: "none",
+                                    userDrag: "none",
+                                    objectFit: "contain",
+                                }}
+                            />
+                            {skill_success?
+                            <>
+                               <div className="shoot_box" onClick={shooting}>
+                                    <p className={`${pretendard_semiBold.className}`}>슈팅하기</p>
+                                </div>
+                            </>:
+                            <>
+                                <div className="boxes">
+                                    <div className="flex ">
+                                        <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(1); discount();}}>개인기</div>
+                                        <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginBottom:'12px', marginRight:'8px'}} onClick={() => {openModal(); setwhat_skill(2); discount();}}>드리블</div>
                                     </div>
-                                </>}
-                            </>
-                            }
+                                    <div className="flex">
+                                        <div className={`skill_box ${pretendard_semiBold.className}`} style={{ marginRight:'8px'}} onClick={() => {passopenModal(); discount();}}>패스</div>
+                                        <div className={`skill_box ${pretendard_semiBold.className}`} style={{  marginRight:'8px'}} onClick={() => {SeeStat_change(); discount();}}>스탯 보기</div>
+                                    </div>
+                                </div>
+                            </>}
                         </>
+                        }
                     </>
-                </>}
-                
-            </div>
-        </>
+                </>
+            </>}
+            
+        </div>
+    </>
+
+        </Suspense>
+        
     );
 
 }

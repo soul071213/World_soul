@@ -9,6 +9,7 @@ import victorys from "@/public/Image/Vitory_back.png";
 import Link from "next/link";
 import { db } from '../../firebase'; 
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import loading_page from "@/public/Image/loading_image.png";
 
 const updateRanking = async (name, points) => {
     const userRef = doc(db, 'rankings', name); 
@@ -44,7 +45,13 @@ export default function Victory() {
     };
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>            <Image
+            src={loading_page}
+            alt="Glass"
+            layout="fill"
+            objectFit="fill"
+            style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+        /></div>}>
             <div className="w-screen h-screen">
                 {victory_state === "true" ? (
                     <>
