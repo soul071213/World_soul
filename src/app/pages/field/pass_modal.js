@@ -1,7 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
 import "./style.css";
-import { pretendard_Bold, pretendard_medium, Pretendard_Regular } from "@/app/font";
 import Image from "next/image";
 import country_player from "@/app/data/country_playes_image";
 

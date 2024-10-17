@@ -209,7 +209,7 @@ export default function FieldPage() {
         setTimeout(()=>{
             setgoal_try(false);
         },2000);
-        if(dischance!==1 || dischance!==0){
+        if(dischance!==1 || dischance!==0 || dischance<0===false){
             setdischance(dischance - 1);
         }
         setchance(dischance);

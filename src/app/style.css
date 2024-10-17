@@ -10,8 +10,7 @@
     background-color: #F7F7F7;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    overflow-y: auto; /* 세로 스크롤 추가 */
-    overflow-x: hidden; /* 가로 스크롤 비활성화 */
+
 }
 
 /* 나머지 CSS */
@@ -23,6 +22,8 @@
 .top-bit{
     width: calc(420/1920*100vw);
     height: calc(700/1080*100vh);
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    overflow-x: hidden; /* 가로 스크롤 비활성화 */
     margin-bottom: 20px;
 }
 .top-bar {
