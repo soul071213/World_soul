@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Pretendard_Regular, pretendard_Bold ,pretendard_medium } from "@/app/font";
 import "./style.css";
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import lose from "@/public/Image/lose.png";
 import victorys from "@/public/Image/Vitory_back.png";
 import Link from "next/link";
@@ -44,57 +44,57 @@ export default function Victory() {
     };
 
     return (
-        <div className="w-screen h-screen">
-            {victory_state === "true" ? (
-                <>
-                    <Image 
-                        src={victorys} 
-                        alt="first_back" 
-                        layout="fill" 
-                        objectFit="cover" 
-                        style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
-                    />
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="box">
-                            <div>
-                                <p className={`${pretendard_medium.className}`}>승리하셨습니다.</p>
-                                <p className={`${pretendard_medium.className}`}>{final_points}p 획득</p>
-                            </div>
-                            <div>
-                                <input 
-                                    className={`${Pretendard_Regular.className}`} 
-                                    type="text" 
-                                    name="username" 
-                                    placeholder="닉네임을 입력해주세요."
-                                    value={username} // 상태 값으로 설정
-                                    onChange={(e) => setUsername(e.target.value)} // 입력값 업데이트
-                                />
-                            </div>
-                            <Link href={{ pathname: "/", }}>
-                                <div onClick={handleRankUpdate}>
-                                    <p className={`checkin ${pretendard_medium.className}`}>확인</p>
+        <Suspense fallback={<div>Loading...</div>}>
+            <div className="w-screen h-screen">
+                {victory_state === "true" ? (
+                    <>
+                        <Image 
+                            src={victorys} 
+                            alt="victory background" 
+                            fill 
+                            style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+                        />
+                        <div className="w-full h-full flex items-center justify-center">
+                            <div className="box">
+                                <div>
+                                    <p className={`${pretendard_medium.className}`}>승리하셨습니다.</p>
+                                    <p className={`${pretendard_medium.className}`}>{final_points}p 획득</p>
                                 </div>
-                            </Link>
+                                <div>
+                                    <input 
+                                        className={`${Pretendard_Regular.className}`} 
+                                        type="text" 
+                                        name="username" 
+                                        placeholder="닉네임을 입력해주세요."
+                                        value={username} // 상태 값으로 설정
+                                        onChange={(e) => setUsername(e.target.value)} // 입력값 업데이트
+                                    />
+                                </div>
+                                <Link href={{ pathname: "/", }}>
+                                    <div onClick={handleRankUpdate}>
+                                        <p className={`checkin ${pretendard_medium.className}`}>확인</p>
+                                    </div>
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                </>
-            ) : (
-                <>
-                    <Image 
-                        src={lose} 
-                        alt="first_back" 
-                        layout="fill" 
-                        objectFit="cover" 
-                        style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
-                    />
-                    <p className={`lose ${pretendard_Bold.className}`}>패배하셨습니다.</p>
-                    <Link href={{ pathname: "/", }}>
-                        <div className="check_box">
-                            <p className={`check ${pretendard_medium.className}`}>확인</p>
-                        </div>
-                    </Link>
-                </>
-            )}
-        </div>
+                    </>
+                ) : (
+                    <>
+                        <Image 
+                            src={lose} 
+                            alt="lose background" 
+                            fill
+                            style={{ pointerEvents: 'none', userSelect: 'none', userDrag: 'none', zIndex: '-1' }}
+                        />
+                        <p className={`lose ${pretendard_Bold.className}`}>패배하셨습니다.</p>
+                        <Link href={{ pathname: "/", }}>
+                            <div className="check_box">
+                                <p className={`check ${pretendard_medium.className}`}>확인</p>
+                            </div>
+                        </Link>
+                    </>
+                )}
+            </div>
+        </Suspense>
     );
 }
