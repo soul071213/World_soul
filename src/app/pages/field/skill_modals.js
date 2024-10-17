@@ -6,7 +6,6 @@ import Ball from "@/public/Image/ball.png";
 import Image from "next/image";
 import attack_state from "@/app/data/attack_state";
 import depencer_state from "@/app/data/depencer_state";
-import { useRouter } from 'next/navigation';
 
 function SkillModals({ isOpen, onClose, my_name, enumy_name, skills, change_success, fail_change_success, change_keeper }) {
     const [my_playerState, setmy_playerState] = useState(null); // 적 스탯
@@ -17,7 +16,6 @@ function SkillModals({ isOpen, onClose, my_name, enumy_name, skills, change_succ
     const [number, setNumber] = useState(1); // 돌림판 값
     const [count, setCount] = useState(0);
     const [success, setsuscccess] = useState();
-    const router = useRouter();
 
     useEffect(() => {
         let state = Array.from(attack_state.entries()).find(([name]) => name === my_name);
