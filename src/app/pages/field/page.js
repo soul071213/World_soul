@@ -6,7 +6,7 @@ import { pretendard_Bold ,pretendard_medium,pretendard_semiBold} from "@/app/fon
 import "./style.css";
 import { useSearchParams,useRouter } from 'next/navigation';
 import counrtys_player from "@/app/data/country";
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,Suspense} from 'react';
 import players from "@/app/data/player";
 import depencer from "@/app/data/depencer";
 import StatePage from "./seestat";
